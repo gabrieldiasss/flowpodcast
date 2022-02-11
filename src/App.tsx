@@ -1,7 +1,8 @@
 import SideBar from "./components/SideBar";
 import { Container } from "./styles.app";
-import RoutesComponent from "./routes";
 import { GlobalStyle } from "./styles/global";
+import Player from "./components/Player";
+import Content from "./components/Content";
 
 export default function App() {
 
@@ -9,8 +10,8 @@ export default function App() {
 		<Container>
 			<GlobalStyle />
 			<SideBar />
-			<RoutesComponent />
-			
+			<Player />
+			<Content />
 		</Container>
 	)
 }
