@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         --gray-700: #1C1B21; // fundo secondary
         --gray-600: #27282A; // linhas
         --gray-550: #1F1F26; // fundo
+        
 
         //texts
         --gray-300: #9A8181;
@@ -23,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
         // icons
         --orange-800: #EE8B19;
         --orange-600: #FFB705;
+        --gray-250: #4C4F56;
     }
 
     body {
@@ -47,13 +49,16 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
-    h1, h3, strong {
+    h1, h3, strong, time, a {
         font-family: 'Poppins', sans-serif;
+    }
+
+    h1, h3, strong {
         color: var(--white);
     }
 
     h1 {
-        font-weight: 700;
+        font-weight: 600;
     }
 
     h2, p {
@@ -68,6 +73,7 @@ export const GlobalStyle = createGlobalStyle`
     a {
         text-decoration: none;
         color: var(--white);
+        font-weight: 400;
     }
 
     li {

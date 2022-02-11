@@ -6,7 +6,7 @@ import { ArrowRightCircleFill } from '@styled-icons/bootstrap/ArrowRightCircleFi
 export const Container = styled.header`
 
     strong {
-        font-size: 3rem;
+        font-size: 2.4rem;
     }
 
 `
@@ -20,14 +20,11 @@ export const Slider = styled.div`
     flex-direction: column;
     align-items: center;
 
-    
-
     img {
-        width: 1000px;
-        height: 200px;
+        width: 100%;
         border-radius: 10px;
-        
     }
+
 `
 
 const iconCSS = css`
@@ -36,19 +33,17 @@ const iconCSS = css`
     color: var(--orange-800);
 
     position: absolute;
-    top: 100px;
+    top: 50%;
     transform: translate(0, -50%);
     cursor: pointer;
-
-
 `
 
 export const Left = styled(ArrowLeftCircleFill)`
     ${iconCSS}
-    left: 16px;
+    left: 5%;
 `
 
 export const Right = styled(ArrowRightCircleFill)`
     ${iconCSS}
-    right: 16px;
+    right: 5%;
 `
