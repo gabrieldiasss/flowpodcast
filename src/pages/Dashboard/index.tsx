@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import { api } from '../../services/api'
-import { Container, MainDashboard, Cards, Card, More, Play } from './styles'
-
-interface Episodes {
-    title: string;
-    duration: string;
-    cover: string;
-}
+import { Container, MainDashboard, Cards, } from './styles'
+import CardEpisode  from '../../components/CardEpisode'
+import { Episodes } from '../../types'
 
 export default function Dashboard() {
 
@@ -52,29 +48,8 @@ export default function Dashboard() {
 
                     <Cards>
                         {episodes.slice(0, 2).map((value, key) => (
-                            <Card key={key} >
-                                <img src={value.cover} alt="" />
-
-                                <div>
-                                    <div className='line-1' >
-                                        <a href="#" >
-                                            {value.title}
-                                        </a>
-
-                                        <More />
-                                    </div>
-
-                                    <div className='line-2' >
-                                        <time>01:32:08</time>
-
-                                        <Play />
-                                    </div>
-                                </div>
-
-
-                            </Card>
+                            <CardEpisode key={key} data={value} />
                         ))}
-
 
                     </Cards>
 

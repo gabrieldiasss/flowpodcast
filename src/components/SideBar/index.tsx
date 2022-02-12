@@ -11,13 +11,9 @@ export default function SideBar() {
 
             <Nav>
                 <ul>
-                    <Routes>
-                        <Route path="/episodes" >Home</Route>
-                        {/* <li><Link to="/episodes" >Episódios</Link></li>
-                        <li><Link to="/" >Salvos</Link></li> */}
-                    </Routes>
-
-
+                    <li><Link to="/" >Home</Link></li>
+                    <li><Link to="/episodes">Episódios</Link></li>
+                    <li><Link to="/saved" >Salvos</Link></li>
                 </ul>
             </Nav>
 

@@ -89,6 +89,9 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     input {
+        background: none;
+        border: 0;
+        outline: 0;
         font-weight: 400;
     }
 
@@ -101,7 +104,14 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     button.active {
-        background: linear-gradient(90deg, #D7AD2A, #FD740F);
+        background: linear-gradient(to left, #FD740F, #D7AD2A);
+        background-size: 200%;
+        transition: 0.4s;
+    }
+
+    button.active:hover {
+        background-position: right;
+        transition: 0.4s;
     }
 
 `
