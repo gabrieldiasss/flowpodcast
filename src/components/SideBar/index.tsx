@@ -1,6 +1,7 @@
 import { Container, Nav } from './styles'
 
 import LogoFlow from '../../assets/logo-flow.svg'
+import { Link, Route, Routes } from 'react-router-dom'
 
 export default function SideBar() {
 
@@ -10,9 +11,13 @@ export default function SideBar() {
 
             <Nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Bibliotecas</a></li>
-                    <li><a href="#">Salvos</a></li>
+                    <Routes>
+                        <Route path="/episodes" >Home</Route>
+                        {/* <li><Link to="/episodes" >Episódios</Link></li>
+                        <li><Link to="/" >Salvos</Link></li> */}
+                    </Routes>
+
+
                 </ul>
             </Nav>
 

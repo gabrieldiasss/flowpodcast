@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Dashboard from './pages/Dashboard'
+import Episodes from './pages/Episodes'
 
 export default function RoutesComponent () {
 
@@ -8,6 +9,7 @@ export default function RoutesComponent () {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Dashboard />}  />
+                <Route path="/episodes" element={<Episodes />} />
             </Routes>
         </BrowserRouter>
     )

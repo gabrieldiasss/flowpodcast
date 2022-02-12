@@ -35,7 +35,7 @@ export default function Header() {
                 <Left onClick={prevSlide} />
                 <Right onClick={nextSlide} />
                 {SliderData.map((value, index) => (
-                    <div>
+                    <div key={index} >
                         {index === current && (
                             <img src={value.image} alt="Banners Flow" />
                         )}

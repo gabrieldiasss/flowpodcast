@@ -41,6 +41,10 @@ export const Card = styled.div`
 
     padding: 2rem;
 
+    & + div {
+        margin-top: 1rem;
+    }
+
     img {
         width: 150px;
         height: 100px;
@@ -51,16 +55,23 @@ export const Card = styled.div`
     div {
 
         gap: 1rem;
+        flex: 1;
 
         .line-1 {
             display: flex;
             align-items: flex-start;
+            justify-content: space-between;
+
+            a {
+                font-size: 1.4rem;
+            }
         }
 
         .line-2 {
-            margin-top: 1rem;
+            
             display: flex;
             justify-content: space-between;
+            flex: 1;
 
             time {
                 color: var(--gray-200);
