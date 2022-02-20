@@ -1,15 +1,14 @@
-import { Container, Input, Cards, SearchIcon } from './styles'
+import { Container, Cards } from './styles'
 import CardEpisode from '../../components/CardEpisode'
 import { useEffect, useState } from 'react'
 import { Episodes } from '../../types'
 import { api } from '../../services/api'
-import axios from 'axios'
 
 export default function Episodess() {
 
     const [episodes, setEpisodes] = useState<Episodes[]>([])
     const [nextEpisodes, setNextEpisodes] = useState('')
-
+    
     useEffect(() => {
         api.post("episodes/list", {
             params: {
@@ -17,11 +16,11 @@ export default function Episodess() {
             },
         }
         )
-
             .then(response => {
                 setEpisodes(response.data.episodes)
 
                 setNextEpisodes(response.data.paging.next)
+                console.log(response.data.episodes)
             })
 
             .catch(err => {
@@ -46,15 +45,15 @@ export default function Episodess() {
             }
         )
 
-            .then((response) => {
+        .then((response) => {
 
-                // ADICIONANDO OS EPISODIOS NOVOS QUE CARREGAMOS JUNTO COM OS OUTROS
-                const newEpisodes = response.data.episodes
-                setEpisodes([...episodes, ...newEpisodes])
+            // ADICIONANDO OS EPISODIOS NOVOS QUE CARREGAMOS JUNTO COM OS OUTROS
+            const newEpisodes = response.data.episodes
+            setEpisodes([...episodes, ...newEpisodes])
 
-                // SALVANDO NOVAMENTE A DATA DOS PROXIMOS EPISODIOS
-                setNextEpisodes(response.data.paging.next)
-            })
+            // SALVANDO NOVAMENTE A DATA DOS PROXIMOS EPISODIOS
+            setNextEpisodes(response.data.paging.next)
+        })
     }
 
     return (
@@ -62,16 +61,11 @@ export default function Episodess() {
 
             <header>
                 <h1>Todos episódios</h1>
-
-                <Input>
-                    <SearchIcon />
-                    <input type="text" />
-                </Input>
             </header>
 
             <Cards>
-                {episodes.map((value, key) => (
-                    <CardEpisode key={key} data={value} />
+                {episodes.map((value) => (
+                    <CardEpisode key={value.id} data={value} />
                 ))}
 
                 <button type="button" className='active' onClick={handleMoreEpisodes} >CARREGAR PRÓXIMOS 9 EPISÓDIOS</button>

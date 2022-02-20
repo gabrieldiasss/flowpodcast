@@ -1,36 +1,14 @@
-import { useEffect, useState } from 'react'
+
 import Header from '../../components/Header'
-import { api } from '../../services/api'
 import { Container, MainDashboard, Cards, } from './styles'
 import CardEpisode  from '../../components/CardEpisode'
-import { Episodes } from '../../types'
+import { useEpisode } from '../../hook/useEpisode'
+import { Link } from 'react-router-dom'
+
 
 export default function Dashboard() {
 
-    const [episodes, setEpisodes] = useState<Episodes[]>([])
-    const [nextEpisodes, setNextEpisodes] = useState('')
-
-    useEffect(() => {
-        api.post("episodes/list", {
-            params: {
-                filter: 'episodes',
-            },
-        }
-        )
-
-            .then(response => {
-                setEpisodes(response.data.episodes)
-
-                setNextEpisodes(response.data.paging.next)
-            })
-
-            .catch(err => {
-                console.log(err)
-            })
-
-    }, [])
-
-    console.log(episodes)
+    const { episodes } = useEpisode()
 
     return (
         <Container>
@@ -43,7 +21,7 @@ export default function Dashboard() {
                     <header>
                         <h1>Últimos Episódios</h1>
 
-                        <a href="#">Ver todos</a>
+                        <Link to="/episodes" >Ver todos</Link>
                     </header>
 
                     <Cards>
