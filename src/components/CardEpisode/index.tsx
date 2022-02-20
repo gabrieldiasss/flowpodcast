@@ -22,25 +22,33 @@ export default function CardEpisode({data}: CardEpisode) {
 
     return (
         <Card>
-            <img src={data.cover} alt="" />
+            <img src={data?.cover} alt="" />
 
             <div>
                 <div className='line-1' >
                     <a href="#" >
-                        {data.title}
+                        {data?.title}
                     </a>
 
                     <More onClick={openModal} />
                 </div>
 
                 <div className='line-2' >
-                    <time>{data.duration}</time>
+                    <time>{data?.duration}</time>
 
                     <Play />
+
                 </div>
             </div>
 
-            <MoreModal isOpen={modalIsOpen} onRequestClose={closeModal} />
+            <MoreModal 
+                id={data.id} 
+                title={data.title} 
+                cover={data.cover}
+                duration={data.duration}
+                isOpen={modalIsOpen} 
+                onRequestClose={closeModal} 
+            />
         </Card>
     )
 }

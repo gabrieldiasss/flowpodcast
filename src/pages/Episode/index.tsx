@@ -1,32 +1,59 @@
+import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
+import { api } from "../../services/api"
 import { Container, EpisodeSection, PlayIcon } from './styles'
+
+interface Episode {
+    episode: {
+        title: string;
+        description: string;
+        created_at: string;
+        duration: string;
+    }
+}
 
 export default function Episode() {
 
+    let { id } = useParams()
+
+    const [episode, setEpisode] = useState<Episode>({} as Episode)
+
+    useEffect(() => {
+        api.get(`episodes/view/${id}`)
+            .then((response) => {
+                setEpisode(response.data)
+            })
+
+    }, [])
+
+    console.log(episode.episode?.duration)
+
     return (
         <Container>
-            <h1>Saiba mais sobre o Episódio:</h1>
+            <h1>Saiba mais sobre o Episódio</h1>
 
             <main>
                 <EpisodeSection>
-                    <h2>[GALINHA PINTADINHA] MARCOS
-                        LUPORINI - Flow Podcast #426</h2>
+                    <h2>{episode.episode?.title}</h2>
 
                     <div className="infos-duration" >
                         <div>
-                            <time>July 27, 2021</time>
+                            <time>{new Date(episode.episode?.created_at).toLocaleDateString('pt-BR', {
+                                day: '2-digit',
+                                month: 'long',
+                                year: 'numeric'
+                            })}</time>
 
-                            <span>01:32:08</span>
+                            <span>{episode.episode?.duration}</span>
                         </div>
-                        
+
                         <PlayIcon />
 
                     </div>
 
                     <div className="line" ></div>
 
-                    <p>Marcos Luporini é um dos criadores da Galinha Pintadinha,
-                        o único canal do youtube que o Monark nunca conseguiu
-                        bater em views mensais na época do minecraft.</p>
+                    <p>{episode.episode?.description}</p>
                 </EpisodeSection>
             </main>
 

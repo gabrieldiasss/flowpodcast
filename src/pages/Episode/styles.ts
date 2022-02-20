@@ -38,7 +38,7 @@ export const EpisodeSection = styled.section`
 
     .line {
         margin: 2rem 0;
-        border-top: 1px solid var(--gray-200);
+        border-top: 1px solid var(--gray-250);
     }
 
     p {

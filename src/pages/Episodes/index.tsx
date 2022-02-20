@@ -3,31 +3,11 @@ import CardEpisode from '../../components/CardEpisode'
 import { useEffect, useState } from 'react'
 import { Episodes } from '../../types'
 import { api } from '../../services/api'
+import { useEpisode } from '../../hook/useEpisode'
 
 export default function Episodess() {
 
-    const [episodes, setEpisodes] = useState<Episodes[]>([])
-    const [nextEpisodes, setNextEpisodes] = useState('')
-    
-    useEffect(() => {
-        api.post("episodes/list", {
-            params: {
-                filter: 'episodes',
-            },
-        }
-        )
-            .then(response => {
-                setEpisodes(response.data.episodes)
-
-                setNextEpisodes(response.data.paging.next)
-                console.log(response.data.episodes)
-            })
-
-            .catch(err => {
-                console.log(err)
-            })
-
-    }, [])
+    const { episodes, setEpisodes, nextEpisodes, setNextEpisodes } = useEpisode()
 
     function handleMoreEpisodes() {
         api.post('episodes/list',

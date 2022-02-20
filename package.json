@@ -5,13 +5,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "json-server --watch db.json --port 5000"
+
   },
   "dependencies": {
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-modal": "^3.13.1",
     "axios": "^0.25.0",
+    "json-server": "^0.17.0",
     "modal": "^1.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
