@@ -4,11 +4,12 @@ import { Card, More, Play } from './styles'
 import { useState } from 'react'
 import MoreModal from '../MoreModal'
 
-interface CardEpisode {
+interface CardEpisodeProps {
     data: Episodes;
+    showButtonDeleteEpisodeSaved: boolean;
 }
 
-export default function CardEpisode({data}: CardEpisode) {
+export default function CardEpisode({data, showButtonDeleteEpisodeSaved}: CardEpisodeProps) {
 
     const [modalIsOpen, setIsOpen] = useState(false)
 
@@ -19,6 +20,8 @@ export default function CardEpisode({data}: CardEpisode) {
     function closeModal() {
         setIsOpen(false)
     }
+
+
 
     return (
         <Card>
@@ -48,6 +51,7 @@ export default function CardEpisode({data}: CardEpisode) {
                 duration={data.duration}
                 isOpen={modalIsOpen} 
                 onRequestClose={closeModal} 
+                showButtonDeleteEpisodeSaved={showButtonDeleteEpisodeSaved}
             />
         </Card>
     )

@@ -26,9 +26,8 @@ export default function Dashboard() {
 
                     <Cards>
                         {episodes.slice(0, 2).map((value, key) => (
-                            <CardEpisode key={key} data={value} />
+                            <CardEpisode showButtonDeleteEpisodeSaved={false} key={key} data={value} />
                         ))}
-
                     </Cards>
 
                 </section>

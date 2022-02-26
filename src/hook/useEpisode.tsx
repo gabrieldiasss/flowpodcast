@@ -11,6 +11,8 @@ interface EpisodesContextData {
     setEpisodes: React.Dispatch<React.SetStateAction<Episodes[]>>;
     nextEpisodes: string;
     setNextEpisodes: React.Dispatch<React.SetStateAction<string>>;
+    saved: Episodes[];
+    setSaved: React.Dispatch<React.SetStateAction<Episodes[]>>;
 }
 
 export const EpisodeContext = createContext<EpisodesContextData>({} as EpisodesContextData)
@@ -19,6 +21,8 @@ export default function EpisodeContextProvider({children}: Children) {
 
     const [episodes, setEpisodes] = useState<Episodes[]>([])
     const [nextEpisodes, setNextEpisodes] = useState('')
+
+    const [saved, setSaved] = useState<Episodes[]>([])
 
     useEffect(() => {
         api.post("episodes/list", {
@@ -41,7 +45,7 @@ export default function EpisodeContextProvider({children}: Children) {
     }, [])
 
     return (
-        <EpisodeContext.Provider value={{ episodes, setEpisodes, nextEpisodes, setNextEpisodes }} >
+        <EpisodeContext.Provider value={{ episodes, setEpisodes, nextEpisodes, setNextEpisodes, saved, setSaved }} >
             {children}
         </EpisodeContext.Provider>
     )

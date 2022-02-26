@@ -6,7 +6,7 @@ import { Episodes } from "../../types";
 
 export default function Saved() {
 
-    const [saved, setSaved] = useState<Episodes[]>([])
+    const { saved, setSaved } = useEpisode()
 
     useEffect(() => {
         axios.get("http://localhost:5000/saved")
@@ -21,7 +21,7 @@ export default function Saved() {
 
             <main>
                 {saved.map((value) =>(
-                    <CardEpisode key={value.id} data={value} />
+                    <CardEpisode showButtonDeleteEpisodeSaved={true} key={value.id} data={value} />
                 ))}
                 
             </main>

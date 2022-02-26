@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom'
+import { useEpisode } from '../../hook/useEpisode';
 
 interface MoreModalProps {
     isOpen: boolean;
@@ -11,9 +12,12 @@ interface MoreModalProps {
     title: string;
     cover: string;
     duration: string;
+    showButtonDeleteEpisodeSaved: boolean;
 }
 
-export default function MoreModal({ isOpen, onRequestClose, id, title, cover, duration }: MoreModalProps) {
+export default function MoreModal({ isOpen, onRequestClose, id, title, cover, duration, showButtonDeleteEpisodeSaved }: MoreModalProps) {
+
+    const { saved, setSaved } = useEpisode()
 
     let navigate = useNavigate()
 
@@ -26,14 +30,21 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
                 cover,
                 duration
             }
-    
+
             await axios.post("http://localhost:5000/saved", data)
 
             navigate('/saved')
 
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
+    }
+
+    function handleDeleteEpisodeSaved(id: string) {
+
+        axios.delete(`http://localhost:5000/saved/${id}`)
+
+        setSaved(saved.filter((cancel) => cancel.id !== id))
     }
 
     return (
@@ -49,8 +60,29 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
                 <button className='active' type='button'>SABER MAIS SOBRE O EPISÓDIO</button>
             </Link>
 
-            <button className='active' type='button' onClick={handleSaveEpisode} >SALVAR EPISÓDIO</button>
+
+            {showButtonDeleteEpisodeSaved &&
+                <button
+                    className='active'
+                    type='button'
+                    onClick={() => handleDeleteEpisodeSaved(id)}
+                >
+                    EXCLUIR DA LISTA DE SALVOS
+                </button>
+            }
+
+            {!showButtonDeleteEpisodeSaved &&
+
+                <button
+                    className='active'
+                    type='button'
+                    onClick={handleSaveEpisode}
+                >
+                    SALVAR EPISÓDIO
+                </button>
+            }
             
-        </Modal>
+
+        </Modal >
     )
 }
