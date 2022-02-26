@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const Container = styled.div`
     
@@ -6,7 +6,7 @@ export const Container = styled.div`
 
 export const MainDashboard = styled.main`
 
-    margin-top: 2rem;
+    margin: 2rem 0 6rem 0;
 
     header {
         display: flex;

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 import { useEpisode } from '../../hook/useEpisode';
 
+import { toast } from 'react-toastify'
+
 interface MoreModalProps {
     isOpen: boolean;
     onRequestClose: () => void;
@@ -21,23 +23,38 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
 
     let navigate = useNavigate()
 
-    async function handleSaveEpisode() {
+    async function handleSaveEpisode(id: string) {
 
         try {
-            const data = {
-                id,
-                title,
-                cover,
-                duration
-            }
 
-            await axios.post("http://localhost:5000/saved", data)
+            const episodeAlreadyExists = saved.find(episode => episode.id === id)
 
-            navigate('/saved')
+            console.log(episodeAlreadyExists)
 
+            if(episodeAlreadyExists) {
+
+                toast.error("Esse episódio já está salvo")
+                
+            } else {
+               
+                   const data = {
+                    id,
+                    title,
+                    cover,
+                    duration
+                }
+    
+                await axios.post("http://localhost:5000/saved", data)
+    
+                navigate('/saved')
+    
+                toast.success("Episódio salvo")
+        }
+            
         } catch (err) {
             console.log(err)
         }
+
     }
 
     function handleDeleteEpisodeSaved(id: string) {
@@ -45,6 +62,8 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
         axios.delete(`http://localhost:5000/saved/${id}`)
 
         setSaved(saved.filter((cancel) => cancel.id !== id))
+
+        toast.success('Episódio deletado')
     }
 
     return (
@@ -76,7 +95,7 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
                 <button
                     className='active'
                     type='button'
-                    onClick={handleSaveEpisode}
+                    onClick={() => handleSaveEpisode(id)}
                 >
                     SALVAR EPISÓDIO
                 </button>

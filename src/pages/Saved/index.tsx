@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CardEpisode from "../../components/CardEpisode";
 import { useEpisode } from "../../hook/useEpisode";
-import { Episodes } from "../../types";
+
+import { Header, Main } from './styles'
 
 export default function Saved() {
 
@@ -10,21 +11,27 @@ export default function Saved() {
 
     useEffect(() => {
         axios.get("http://localhost:5000/saved")
-        .then(response => {
-            setSaved(response.data)
-        })
+            .then(response => {
+                setSaved(response.data)
+            })
+
+
     }, [])
 
     return (
         <>
-            <h1>Episódios Salvos</h1>
+            <Header>
+                <h1>Episódios Salvos</h1>
 
-            <main>
-                {saved.map((value) =>(
+                <span>{saved.length} {saved.length <= 1 ? 'episódio salvo' : 'episódios salvos'}</span>
+            </Header>
+
+            <Main>
+                {saved.map((value) => (
                     <CardEpisode showButtonDeleteEpisodeSaved={true} key={value.id} data={value} />
                 ))}
-                
-            </main>
+
+            </Main>
         </>
     )
 }
