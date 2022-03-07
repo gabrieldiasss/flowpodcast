@@ -14,10 +14,11 @@ interface MoreModalProps {
     title: string;
     cover: string;
     duration: string;
+    mp3: string;
     showButtonDeleteEpisodeSaved: boolean;
 }
 
-export default function MoreModal({ isOpen, onRequestClose, id, title, cover, duration, showButtonDeleteEpisodeSaved }: MoreModalProps) {
+export default function MoreModal({ isOpen, onRequestClose, id, title, cover, duration, mp3, showButtonDeleteEpisodeSaved }: MoreModalProps) {
 
     const { saved, setSaved } = useEpisode()
 
@@ -41,7 +42,8 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
                     id,
                     title,
                     cover,
-                    duration
+                    duration,
+                    mp3
                 }
     
                 await axios.post("http://localhost:5000/saved", data)

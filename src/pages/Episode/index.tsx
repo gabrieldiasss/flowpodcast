@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { useEpisode } from "../../hook/useEpisode"
 import { api } from "../../services/api"
 import { Container, EpisodeSection, PlayIcon } from './styles'
 
@@ -9,10 +10,14 @@ interface Episode {
         description: string;
         created_at: string;
         duration: string;
+        mp3: string;
+        cover: string;
     }
 }
 
 export default function Episode() {
+
+    /* const { SelectedEpisode } = useEpisode() */
 
     let { id } = useParams()
 
@@ -26,7 +31,13 @@ export default function Episode() {
 
     }, [])
 
-    console.log(episode.episode?.duration)
+   /*  const data = {
+        mp3: episode.episode.mp3,
+        cover: episode.episode.cover,
+    } */
+   
+
+    /* console.log(episode.episode.) */
 
     return (
         <Container>
@@ -34,7 +45,7 @@ export default function Episode() {
 
             <main>
                 <EpisodeSection>
-                    <h2>{episode.episode?.title}</h2>
+                    <h2 >{episode.episode?.title}</h2>
 
                     <div className="infos-duration" >
                         <div>
@@ -47,7 +58,7 @@ export default function Episode() {
                             <span>{episode.episode?.duration}</span>
                         </div>
 
-                        <PlayIcon />
+                        <PlayIcon /* onClick={() => SelectedEpisode(data: Episodes)} */ />
 
                     </div>
 

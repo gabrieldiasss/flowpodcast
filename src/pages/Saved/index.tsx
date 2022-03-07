@@ -14,16 +14,16 @@ export default function Saved() {
             .then(response => {
                 setSaved(response.data)
             })
-
-
     }, [])
+
+    console.log(saved)
 
     return (
         <>
             <Header>
                 <h1>Episódios Salvos</h1>
 
-                <span>{saved.length} {saved.length <= 1 ? 'episódio salvo' : 'episódios salvos'}</span>
+                <span>{saved.length} {saved.length === 1 ? 'episódio salvo' : 'episódios salvos'}</span>
             </Header>
 
             <Main>

@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         --gray-700: #1C1B21; // fundo secondary
         --gray-600: #27282A; // linhas
         --gray-550: #1F1F26; // fundo
+        --gray-450: #4F4F5F;
         
 
         //texts
@@ -21,11 +22,15 @@ export const GlobalStyle = createGlobalStyle`
         --gray-200: #9C9C9C;
         --gray-150: #BDB4B4;
         --gray-100: #EBE7E7; 
+        --gray-50: #F4F4F4;
+        
 
         // icons
         --orange-800: #EE8B19;
         --orange-600: #FFB705;
         --gray-250: #4C4F56;
+
+        --width: 0;
     }
 
     body {
@@ -89,20 +94,13 @@ export const GlobalStyle = createGlobalStyle`
         font-family: Poppins, sans-serif;
     }
 
-    input {
-        background: none;
-        border: 0;
-        outline: 0;
-        font-weight: 400;
-    }
-
-    button {
+   button[type=button] {
         cursor: pointer;
         color: var(--white);
         border: 0;
         outline: 0;
         border-radius: 5px;
-    }
+    } 
 
     button.active {
         background: linear-gradient(to left, var(--orange-600),var(--orange-800), var(--orange-600));

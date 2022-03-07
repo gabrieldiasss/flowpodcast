@@ -45,7 +45,7 @@ export default function Episodess() {
 
             <Cards>
                 {episodes.map((value) => (
-                    <CardEpisode key={value.id} data={value} />
+                    <CardEpisode showButtonDeleteEpisodeSaved={false} key={value.id} data={value} />
                 ))}
 
                 <button type="button" className='active' onClick={handleMoreEpisodes} >CARREGAR PRÓXIMOS 9 EPISÓDIOS</button>

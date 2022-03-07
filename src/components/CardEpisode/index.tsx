@@ -3,6 +3,7 @@ import { Card, More, Play } from './styles'
 
 import { useState } from 'react'
 import MoreModal from '../MoreModal'
+import { useEpisode } from '../../hook/useEpisode';
 
 interface CardEpisodeProps {
     data: Episodes;
@@ -11,8 +12,10 @@ interface CardEpisodeProps {
 
 export default function CardEpisode({data, showButtonDeleteEpisodeSaved}: CardEpisodeProps) {
 
-    const [modalIsOpen, setIsOpen] = useState(false)
+    const { SelectedEpisode } = useEpisode()
 
+    const [modalIsOpen, setIsOpen] = useState(false)
+    
     function openModal() {
         setIsOpen(true)
     }
@@ -21,7 +24,7 @@ export default function CardEpisode({data, showButtonDeleteEpisodeSaved}: CardEp
         setIsOpen(false)
     }
 
-
+    console.log(data)
 
     return (
         <Card>
@@ -29,7 +32,7 @@ export default function CardEpisode({data, showButtonDeleteEpisodeSaved}: CardEp
 
             <div>
                 <div className='line-1' >
-                    <a href="#" >
+                    <a href='#' onClick={() => SelectedEpisode(data)} >
                         {data?.title}
                     </a>
 
@@ -39,7 +42,7 @@ export default function CardEpisode({data, showButtonDeleteEpisodeSaved}: CardEp
                 <div className='line-2' >
                     <time>{data?.duration}</time>
 
-                    <Play />
+                    <Play onClick={() => SelectedEpisode(data)} />
 
                 </div>
             </div>
@@ -49,6 +52,7 @@ export default function CardEpisode({data, showButtonDeleteEpisodeSaved}: CardEp
                 title={data.title} 
                 cover={data.cover}
                 duration={data.duration}
+                mp3={data.mp3}
                 isOpen={modalIsOpen} 
                 onRequestClose={closeModal} 
                 showButtonDeleteEpisodeSaved={showButtonDeleteEpisodeSaved}
