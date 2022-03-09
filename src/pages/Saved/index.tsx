@@ -9,13 +9,13 @@ export default function Saved() {
 
     const { saved, setSaved } = useEpisode()
 
-    useEffect(() => {
+    /* useEffect(() => {
         axios.get("http://localhost:5000/saved")
             .then(response => {
                 setSaved(response.data)
             })
     }, [])
-
+ */
     console.log(saved)
 
     return (

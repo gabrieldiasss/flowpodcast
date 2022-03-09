@@ -15,6 +15,8 @@ export const Container = styled.footer`
     width: 80%;
     flex: 1;
 
+    
+
     display: flex;
     align-items: center;
 
@@ -58,6 +60,10 @@ export const Content = styled.div`
         position: relative;
         width: 500px;
         height: 8px;
+
+        @media(max-width: 1400px) {
+            width: 350px;
+        }
 
         &::-webkit-slider-runnable-track {
             appearance: none;

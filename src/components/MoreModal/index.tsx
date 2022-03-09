@@ -30,29 +30,31 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
 
             const episodeAlreadyExists = saved.find(episode => episode.id === id)
 
-            console.log(episodeAlreadyExists)
-
-            if(episodeAlreadyExists) {
+            if (episodeAlreadyExists) {
 
                 toast.error("Esse episódio já está salvo")
-                
+
             } else {
-               
-                   const data = {
+
+                const data = {
                     id,
                     title,
                     cover,
                     duration,
                     mp3
                 }
-    
-                await axios.post("http://localhost:5000/saved", data)
-    
+
+                await setSaved([...saved, data])
+
+                localStorage.setItem("saveds", JSON.stringify(saved))
+
                 navigate('/saved')
-    
+
                 toast.success("Episódio salvo")
-        }
-            
+
+
+            }
+
         } catch (err) {
             console.log(err)
         }
@@ -61,11 +63,29 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
 
     function handleDeleteEpisodeSaved(id: string) {
 
-        axios.delete(`http://localhost:5000/saved/${id}`)
+        try {
 
-        setSaved(saved.filter((cancel) => cancel.id !== id))
+            const updatedSaved = [...saved]
 
-        toast.success('Episódio deletado')
+            const savedExists = updatedSaved.findIndex(product => product.id === id)
+
+            console.log(savedExists)
+
+            if (savedExists >= 0) {
+                
+                updatedSaved.splice(savedExists, 1)
+                setSaved(updatedSaved)
+                localStorage.setItem('saveds', JSON.stringify(updatedSaved))
+
+                toast.success('Episódio deletado')
+            } else {
+                throw Error()
+            }
+
+        } catch {
+            toast.error("Erro interno")
+        }
+
     }
 
     return (
@@ -102,7 +122,7 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
                     SALVAR EPISÓDIO
                 </button>
             }
-            
+
 
         </Modal >
     )
