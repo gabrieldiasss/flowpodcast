@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 
@@ -24,9 +24,11 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
 
     let navigate = useNavigate()
 
-    async function handleSaveEpisode(id: string) {
+     function handleSaveEpisode(id: string) {
 
         try {
+
+            const updatedSaved = [...saved]
 
             const episodeAlreadyExists = saved.find(episode => episode.id === id)
 
@@ -44,16 +46,15 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
                     mp3
                 }
 
-                await setSaved([...saved, data])
-
-                localStorage.setItem("saveds", JSON.stringify(saved))
+                updatedSaved.push(data)
 
                 navigate('/saved')
 
                 toast.success("Episódio salvo")
-
-
             }
+
+            setSaved(updatedSaved)
+            localStorage.setItem("saveds", JSON.stringify(updatedSaved))
 
         } catch (err) {
             console.log(err)
@@ -68,8 +69,6 @@ export default function MoreModal({ isOpen, onRequestClose, id, title, cover, du
             const updatedSaved = [...saved]
 
             const savedExists = updatedSaved.findIndex(product => product.id === id)
-
-            console.log(savedExists)
 
             if (savedExists >= 0) {
                 

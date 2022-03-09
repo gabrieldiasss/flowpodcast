@@ -2,42 +2,27 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useEpisode } from "../../hook/useEpisode"
 import { api } from "../../services/api"
+import { IEpisode, Episodes, ISelectedEpisode } from "../../types"
 import { Container, EpisodeSection, PlayIcon } from './styles'
-
-interface Episode {
-    episode: {
-        title: string;
-        description: string;
-        created_at: string;
-        duration: string;
-        mp3: string;
-        cover: string;
-    }
-}
 
 export default function Episode() {
 
-    /* const { SelectedEpisode } = useEpisode() */
+    const { SelectedEpisode } = useEpisode()
 
     let { id } = useParams()
 
-    const [episode, setEpisode] = useState<Episode>({} as Episode)
+    const [episode, setEpisode] = useState<IEpisode>({} as IEpisode)
 
     useEffect(() => {
         api.get(`episodes/view/${id}`)
             .then((response) => {
                 setEpisode(response.data)
             })
-
     }, [])
 
-   /*  const data = {
-        mp3: episode.episode.mp3,
-        cover: episode.episode.cover,
-    } */
-   
-
-    /* console.log(episode.episode.) */
+    function selectEpisodPlayer(data: ISelectedEpisode) {
+        SelectedEpisode({ mp3: data.episode.mp3, cover: data.episode.cover})
+    }
 
     return (
         <Container>
@@ -58,7 +43,7 @@ export default function Episode() {
                             <span>{episode.episode?.duration}</span>
                         </div>
 
-                        <PlayIcon /* onClick={() => SelectedEpisode(data: Episodes)} */ />
+                        <PlayIcon onClick={() => selectEpisodPlayer(episode)} />
 
                     </div>
 

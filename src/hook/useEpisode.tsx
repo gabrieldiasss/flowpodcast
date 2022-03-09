@@ -1,7 +1,7 @@
 import { createContext, LegacyRef, ReactNode, useContext, useEffect, useRef, useState } from "react"
 import { toast } from "react-toastify";
 import { api } from "../services/api"
-import { Episodes } from "../types"
+import { Episodes, ISelectedEpisode } from "../types"
 
 interface Children {
     children: ReactNode;
@@ -14,7 +14,7 @@ interface EpisodesContextData {
     setNextEpisodes: React.Dispatch<React.SetStateAction<string>>;
     saved: Episodes[];
     setSaved: React.Dispatch<React.SetStateAction<Episodes[]>>;
-    selectedEpisode: Episodes;
+    selectedEpisode: ISelectedEpisode;
     setSelectedEpisode: React.Dispatch<React.SetStateAction<Episodes>>;
     SelectedEpisode: (data: Episodes) => void;
     onLoadedMetadata: () => void;
@@ -49,7 +49,7 @@ export default function EpisodeContextProvider({ children }: Children) {
 
     })
 
-    const [selectedEpisode, setSelectedEpisode] = useState<Episodes>(() => {
+    const [selectedEpisode, setSelectedEpisode] = useState<ISelectedEpisode>(() => {
 
         const storagedCart = localStorage.getItem('episode');
 
@@ -73,14 +73,14 @@ export default function EpisodeContextProvider({ children }: Children) {
     const progressBar = useRef<any>(null)
     const animationRef = useRef<any>(null)
 
-    const SelectedEpisode = async (data: Episodes) => {
+    const SelectedEpisode = async ({ mp3, cover }: ISelectedEpisode) => {
 
         try {
-            await setSelectedEpisode(data)
+            await setSelectedEpisode({ mp3, cover })
 
-            click()
+            PlayerEpisodeByCard()
 
-            localStorage.setItem('episode', JSON.stringify(data))
+            localStorage.setItem('episode', JSON.stringify({ mp3, cover }))
 
         } catch {
             toast.error("Erro na aplicação")
@@ -107,7 +107,7 @@ export default function EpisodeContextProvider({ children }: Children) {
         return `${returnedHours}:${returnedMinutes}:${returnedSeconds}`
     }
 
-    const click = () => {
+    const PlayerEpisodeByCard = () => {
         const prevValue = isPlayingCard
         setIsPlayingCard(!prevValue)
 
@@ -149,8 +149,6 @@ export default function EpisodeContextProvider({ children }: Children) {
             )
     
             setCurrentTime(progressBar.current.value)
-    
-            localStorage.setItem('currentTime', JSON.stringify(progressBar.current.value))
 
         } catch {
             toast.error("Erro interno")
