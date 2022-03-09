@@ -62,20 +62,11 @@ export default function EpisodeContextProvider({ children }: Children) {
     })
 
     // state
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(true)
     const [isPlayingCard, setIsPlayingCard] = useState(false)
 
     const [duration, setDuration] = useState(0)
-    const [currentTime, setCurrentTime] = useState<number>(() => {
-
-        const storagedCart = localStorage.getItem('currentTime');
-
-        if (storagedCart) {
-            return JSON.parse(storagedCart)
-        }
-
-        return 0
-    })
+    const [currentTime, setCurrentTime] = useState<number>(0)
 
     // references
     const audioPlayer = useRef<HTMLAudioElement>(null)
@@ -124,6 +115,7 @@ export default function EpisodeContextProvider({ children }: Children) {
             audioPlayer.current.play()
             animationRef.current = requestAnimationFrame(whilePlaying)
             setIsPlaying(false)
+
         } else {
             audioPlayer.current.play()
             animationRef.current = requestAnimationFrame(whilePlaying)
@@ -139,21 +131,31 @@ export default function EpisodeContextProvider({ children }: Children) {
             audioPlayer.current.play()
             animationRef.current = requestAnimationFrame(whilePlaying)
             changePlayerCurrentTime()
+
         } else {
             audioPlayer.current.pause()
             cancelAnimationFrame(animationRef.current)
             animationRef.current = requestAnimationFrame(whilePlaying)
         }
 
-    } // 6468
+    } 
 
     const changePlayerCurrentTime = () => {
-        progressBar.current.style.setProperty(
-            '--width', `${progressBar.current.value / duration * 100}%`
-        )
-        setCurrentTime(progressBar.current.value)
 
-        localStorage.setItem('currentTime', JSON.stringify(progressBar.current.value))
+        try {
+
+            progressBar.current.style.setProperty(
+                '--width', `${progressBar.current.value / duration * 100}%`
+            )
+    
+            setCurrentTime(progressBar.current.value)
+    
+            localStorage.setItem('currentTime', JSON.stringify(progressBar.current.value))
+
+        } catch {
+            toast.error("Erro interno")
+        }
+      
     }
 
     function whilePlaying() {
@@ -180,7 +182,6 @@ export default function EpisodeContextProvider({ children }: Children) {
         timeTravel(Number(progressBar.current.value) + 30);
         changeRange()
     }
-
 
     useEffect(() => {
         api.post("episodes/list", {
