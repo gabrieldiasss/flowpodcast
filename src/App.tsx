@@ -6,7 +6,6 @@ import Content from "./components/Content";
 import EpisodeContextProvider from "./hook/useEpisode";
 
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
 
