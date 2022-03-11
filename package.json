@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "serve": "npm run buid && vite preview"
+    "serve": "npm run build && vite preview"
   },
   "dependencies": {
     "@types/es6-promise": "^3.3.0",
